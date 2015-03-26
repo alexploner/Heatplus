@@ -288,7 +288,7 @@ picketPlot = function (x, grp=NULL, grpcol, grplabel=NULL, horizontal=TRUE, asIs
             if ((cc$degree>0) & (cc$span>0)){
                 with(panels[[i]], lines(smo[,1], smo[,2]))
             }
-            with(panels[[i]], axis(covaxis, at=axcc, label=axlab))
+            with(panels[[i]], axis(covaxis, at=axcc, label=axlab, las=2))
         }
         ## Name panel (regardless of type)
         if (!is.null(panels[[i]]$label)) {
