@@ -741,7 +741,7 @@ annHeatmap2 = function(x, dendrogram, annotation, cluster, labels, scale=c("row"
 ###################################################
 ### code chunk number 18: plot.annHeatmap_Def
 ###################################################
-plot.annHeatmap = function(x, widths, heights, ...)
+plot.annHeatmap = function(x, widths, heights, na.color="grey", ...)
 {
     ## If there are cluster labels on either axis, we reserve space for them
     doRClusLab = !is.null(x$cluster$Row$label) 
@@ -764,7 +764,11 @@ plot.annHeatmap = function(x, widths, heights, ...)
     if (doClab) mmar[x$labels$Col$side] = x$labels$Col$nrow
     with(x$data, {
         par(mar=mmar)
-        image(1:nc, 1:nr, t(x2), axes = FALSE, xlim = c(0.5, nc + 0.5), ylim = c(0.5, nr + 0.5), xlab = "", ylab = "", col=col, breaks=breaks, ...)    
+        image(1:nc, 1:nr, t(x2), axes = FALSE, xlim = c(0.5, nc + 0.5), ylim = c(0.5, nr + 0.5), xlab = "", ylab = "", col=col, breaks=breaks, ...)
+        mmat <- ifelse(is.na(t(x2)), 1, NA)
+        image(1:nc, 1:nr, mmat, axes = FALSE, 
+                xlab = "", ylab = "", 
+                col = na.color, add=TRUE)
     })
     with (x$labels, {
         if (doRlab) axis(Row$side, 1:nr, las = 2, line = -0.5, tick = 0, labels = Row$labels, cex.axis = Row$cex)
