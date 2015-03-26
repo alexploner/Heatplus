@@ -741,7 +741,7 @@ annHeatmap2 = function(x, dendrogram, annotation, cluster, labels, scale=c("row"
 ###################################################
 ### code chunk number 18: plot.annHeatmap_Def
 ###################################################
-plot.annHeatmap = function(x, widths, heights, na.color="grey", ...)
+plot.annHeatmap = function(x, widths, heights, na.color="lightgrey", ...)
 {
     ## If there are cluster labels on either axis, we reserve space for them
     doRClusLab = !is.null(x$cluster$Row$label) 
