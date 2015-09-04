@@ -294,7 +294,7 @@ picketPlot = function (x, grp=NULL, grpcol, grplabel=NULL, horizontal=TRUE, asIs
             if ((cc$degree>0) & (cc$span>0)){
                 with(panels[[i]], lines(smo[,1], smo[,2]))
             }
-            with(panels[[i]], axis(covaxis, at=axcc, label=axlab))
+            with(panels[[i]], axis(covaxis, at=axcc, label=axlab, las=2))
         }
         ## Name panel (regardless of type)
         if (!is.null(panels[[i]]$label)) {
@@ -767,7 +767,7 @@ annHeatmap2 = function(x, dendrogram, annotation, cluster, labels, scale=c("row"
 ###################################################
 ### code chunk number 19: plot.annHeatmap_Def
 ###################################################
-plot.annHeatmap = function(x, widths, heights, ...)
+plot.annHeatmap = function(x, widths, heights, na.color="lightgrey", ...)
 {
     ## If there are cluster labels on either axis, we reserve space for them
     doRClusLab = !is.null(x$cluster$Row$label) 
@@ -790,7 +790,11 @@ plot.annHeatmap = function(x, widths, heights, ...)
     if (doClab) mmar[x$labels$Col$side] = x$labels$Col$nrow
     with(x$data, {
         par(mar=mmar)
-        image(1:nc, 1:nr, t(x2), axes = FALSE, xlim = c(0.5, nc + 0.5), ylim = c(0.5, nr + 0.5), xlab = "", ylab = "", col=col, breaks=breaks, ...)    
+        image(1:nc, 1:nr, t(x2), axes = FALSE, xlim = c(0.5, nc + 0.5), ylim = c(0.5, nr + 0.5), xlab = "", ylab = "", col=col, breaks=breaks, ...)
+        mmat <- ifelse(is.na(t(x2)), 1, NA)
+        image(1:nc, 1:nr, mmat, axes = FALSE, 
+                xlab = "", ylab = "", 
+                col = na.color, add=TRUE)
     })
     with (x$labels, {
         if (doRlab) axis(Row$side, 1:nr, las = 2, line = -0.5, tick = 0, labels = Row$labels, cex.axis = Row$cex)
